@@ -10,6 +10,21 @@ Write an interface for a data structure that can provide the moving average of t
 2. Provide an implementation for the interface
 3. Provide any additional explanation about the interface and implementation in a README file.
 
+## Coding Solution
+1. Interface name MovingAverage
+2. Implementation MovingAverageImpl
+3. Additional details about Implementation are as below: 
+   ````
+   a) Current Implementation is not Thread safe
+   d) Problem with current implementation that underlying array keeps growing. We can use LinkedList based 
+      implementation and remove the first Element when we have more elements than sample size. Removal can be done in add() 
+      method. if requirement is to get only sampling data that is used to calculate Moving Average. 
+      Currently I have used Array based implementation to provide fast access by index.
+   e) Test class is also added with few test cases. Test class name: MovingAverageImplTest
+   f) While returning moving average, I have used a scale of 2. So all results will be up to 2 decimal places. Rounding mode is HALF_EVEN.
+   g) Another Improvement is to add boundary value checks for get() method used to fetch elements by index 
+   
+
 ## Design Question
 
 Design A Google Analytic like Backend System.
@@ -22,3 +37,5 @@ We need to provide Google Analytic like services to our customers. Please provid
 3. Provide metrics to customers with at most one hour delay.
 4. Run with minimum downtime.
 5. Have the ability to reprocess historical data in case of bugs in the processing logic.
+
+## Design Solution
