@@ -21,7 +21,7 @@ Write an interface for a data structure that can provide the moving average of t
       it takes more time to access the elements form o(1) for ArrayList to O(n) for linkedList.
    e) Test class is also added with few test cases.
    f) While returning moving average, I have used a scale of 2. So all results will be up to 2 decimal places. Rounding mode is HALF_EVEN.
-   g) Another Improvement is to add boundary value checks for get() method used to fetch elements by index 
+   g) Another Improvement is to add boundary value checks for get() method used to fetch elements by index. 
    
 
 ## Design Question
@@ -38,3 +38,4 @@ We need to provide Google Analytic like services to our customers. Please provid
 5. Have the ability to reprocess historical data in case of bugs in the processing logic.
 
 ## Design Solution
+Design Solution doc path '/design_solution/DesignSolution.docx'
