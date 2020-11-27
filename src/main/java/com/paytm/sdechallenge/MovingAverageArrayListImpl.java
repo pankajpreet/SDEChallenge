@@ -7,36 +7,39 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovingAverageImpl implements MovingAverage {
+public class MovingAverageArrayListImpl implements MovingAverage {
 
     private final int sampleSize;
     private final List<BigDecimal> elements;
     private int sampleStartIndex = 0;
     private BigDecimal totalSum = BigDecimal.ZERO;
+    private boolean isModified = false;
+    private BigDecimal movingAverage;
 
-    public MovingAverageImpl(int sampleSize) {
+    public MovingAverageArrayListImpl(int sampleSize) {
         this.sampleSize = sampleSize;
         this.elements = new ArrayList<>();
     }
 
     public void add(BigDecimal value) {
         elements.add(value);
-        totalSum = totalSum.add(value);
         if (elements.size() > sampleSize) {
             totalSum = totalSum.subtract(elements.get(sampleStartIndex));
             sampleStartIndex++;
         }
-    }
-
-    public void add(Long value) {
-        add(BigDecimal.valueOf(value));
+        totalSum = totalSum.add(value);
+        isModified = true;
     }
 
     public BigDecimal getMovingAverage() {
         if (elements.size() < sampleSize) {
             throw new InvalidOperationException(String.format("Sample data size(%d) should not be less than sample size(%d)", elements.size(), sampleSize));
         }
-        return totalSum.divide(BigDecimal.valueOf(sampleSize), 2, RoundingMode.HALF_EVEN);
+        if (isModified) {
+            movingAverage = totalSum.divide(BigDecimal.valueOf(sampleSize), 2, RoundingMode.HALF_EVEN);
+            isModified = false;
+        }
+        return movingAverage;
     }
 
     public int getSamplingSize() {

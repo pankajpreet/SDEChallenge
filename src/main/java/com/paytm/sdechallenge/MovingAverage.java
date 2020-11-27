@@ -6,7 +6,7 @@ import java.math.BigDecimal;
  * An interface used for calculating the average of last n elements. User of this interface can add elements,
  * retrieve number of elements added, get moving average.
  *
- * If number of elements is less than sample size in that
+ * If number of elements is less than sample size in that case exception is thrown.
  *
  * @author Pankaj
  */
@@ -18,13 +18,6 @@ public interface MovingAverage {
      * @param value element to be added at the end
      */
     void add(BigDecimal value);
-
-    /**
-     * Add the element at the end.
-     *
-     * @param value element to be added at the end
-     */
-    void add(Long value);
 
     /**
      * Returns the element at the specified index.

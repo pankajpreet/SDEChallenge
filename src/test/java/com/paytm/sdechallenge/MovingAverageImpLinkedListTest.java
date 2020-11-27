@@ -6,13 +6,13 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
-public class MovingAverageImplTest {
+public class MovingAverageImpLinkedListTest {
 
     private static final int SAMPLE_SIZE = 3;
 
     @Test(expected = InvalidOperationException.class)
     public void movingAverageWithNoElements() {
-        MovingAverage movingAvg = new MovingAverageImpl(SAMPLE_SIZE);
+        MovingAverage movingAvg = new MovingAverageLinkedListImpl(SAMPLE_SIZE);
         try {
             movingAvg.getMovingAverage();
         } catch (InvalidOperationException ex) {
@@ -23,10 +23,10 @@ public class MovingAverageImplTest {
 
     @Test(expected = InvalidOperationException.class)
     public void movingAverageWithElementsLessThanSampleSize() {
-        MovingAverage movingAvg = new MovingAverageImpl(SAMPLE_SIZE);
+        MovingAverage movingAvg = new MovingAverageLinkedListImpl(SAMPLE_SIZE);
         try {
-            movingAvg.add(120l);
-            movingAvg.add(80l);
+            movingAvg.add(BigDecimal.valueOf(120));
+            movingAvg.add(BigDecimal.valueOf(80));
             movingAvg.getMovingAverage();
         } catch (InvalidOperationException ex) {
             Assert.assertEquals("Sample data size(2) should not be less than sample size(3)", ex.getMessage());
@@ -36,18 +36,18 @@ public class MovingAverageImplTest {
 
     @Test
     public void movingAverageWithElementsEqualToSamplesize() {
-        MovingAverage movingAvg = new MovingAverageImpl(SAMPLE_SIZE);
-        movingAvg.add(120l);
-        movingAvg.add(80l);
+        MovingAverage movingAvg = new MovingAverageLinkedListImpl(SAMPLE_SIZE);
+        movingAvg.add(BigDecimal.valueOf(120));
+        movingAvg.add(BigDecimal.valueOf(80));
         movingAvg.add(BigDecimal.valueOf(40));
         Assert.assertEquals(BigDecimal.valueOf(80.00).setScale(2), movingAvg.getMovingAverage());
     }
 
     @Test
     public void movingAverageWithElementsGreaterThanSamplesize() {
-        MovingAverage movingAvg = new MovingAverageImpl(SAMPLE_SIZE);
-        movingAvg.add(160l);
-        movingAvg.add(120l);
+        MovingAverage movingAvg = new MovingAverageLinkedListImpl(SAMPLE_SIZE);
+        movingAvg.add(BigDecimal.valueOf(160));
+        movingAvg.add(BigDecimal.valueOf(120));
         movingAvg.add(BigDecimal.valueOf(119.5));
         movingAvg.add(BigDecimal.valueOf(80.5));
         movingAvg.add(BigDecimal.valueOf(40.75));
@@ -56,7 +56,7 @@ public class MovingAverageImplTest {
 
     @Test
     public void getSamplingSize() {
-        MovingAverage movingAvg = new MovingAverageImpl(SAMPLE_SIZE);
+        MovingAverage movingAvg = new MovingAverageLinkedListImpl(SAMPLE_SIZE);
         movingAvg.add(BigDecimal.valueOf(119.5));
         movingAvg.add(BigDecimal.valueOf(80.5));
         movingAvg.add(BigDecimal.valueOf(40.75));
@@ -68,36 +68,36 @@ public class MovingAverageImplTest {
 
     @Test
     public void getElementsSize() {
-        MovingAverage movingAvg = new MovingAverageImpl(SAMPLE_SIZE);
+        MovingAverage movingAvg = new MovingAverageLinkedListImpl(SAMPLE_SIZE);
         movingAvg.add(BigDecimal.valueOf(119.5));
         movingAvg.add(BigDecimal.valueOf(80.5));
         movingAvg.add(BigDecimal.valueOf(40.75));
         movingAvg.add(BigDecimal.valueOf(119.5));
         movingAvg.add(BigDecimal.valueOf(80.5));
         movingAvg.add(BigDecimal.valueOf(40.75));
-        Assert.assertEquals(6, movingAvg.size());
+        Assert.assertEquals(SAMPLE_SIZE, movingAvg.size());
     }
 
     @Test
     public void getElementAtSpecificIndex() {
-        MovingAverage movingAvg = new MovingAverageImpl(SAMPLE_SIZE);
+        MovingAverage movingAvg = new MovingAverageLinkedListImpl(SAMPLE_SIZE);
         BigDecimal value = BigDecimal.valueOf(40.75);
         movingAvg.add(BigDecimal.valueOf(119.5));
         movingAvg.add(BigDecimal.valueOf(80.5));
         movingAvg.add(value);
         movingAvg.add(BigDecimal.valueOf(119.5));
-        Assert.assertEquals(value, movingAvg.get(2));
+        Assert.assertEquals(value, movingAvg.get(1));
     }
 
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    @Test(expected = IndexOutOfBoundsException.class)
     public void getElementAtNegativeIndex() {
-        MovingAverage movingAvg = new MovingAverageImpl(SAMPLE_SIZE);
+        MovingAverage movingAvg = new MovingAverageLinkedListImpl(SAMPLE_SIZE);
         movingAvg.get(-1);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void getElementAtIndexGreaterThanElements() {
-        MovingAverage movingAvg = new MovingAverageImpl(SAMPLE_SIZE);
+        MovingAverage movingAvg = new MovingAverageLinkedListImpl(SAMPLE_SIZE);
         movingAvg.add(BigDecimal.valueOf(119.5));
         movingAvg.get(1);
     }

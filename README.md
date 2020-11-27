@@ -12,15 +12,14 @@ Write an interface for a data structure that can provide the moving average of t
 
 ## Coding Solution
 1. Interface name MovingAverage
-2. Implementation MovingAverageImpl
+2. Implementation  MovingAverageArrayListImpl and MovingAverageLinkedListImpl
 3. Additional details about Implementation are as below: 
    ````
    a) Current Implementation is not Thread safe
-   d) Problem with current implementation that underlying array keeps growing. We can use LinkedList based 
-      implementation and remove the first Element when we have more elements than sample size. Removal can be done in add() 
-      method. if requirement is to get only sampling data that is used to calculate Moving Average. 
-      Currently I have used Array based implementation to provide fast access by index.
-   e) Test class is also added with few test cases. Test class name: MovingAverageImplTest
+   d) Problem with ArrayList implementation that underlying array keeps growing. For LinkedList based 
+      implementation we remove the first Element when we have more elements than sample size. But With LinkedList implementation
+      it takes more time to access the elements form o(1) for ArrayList to O(n) for linkedList.
+   e) Test class is also added with few test cases.
    f) While returning moving average, I have used a scale of 2. So all results will be up to 2 decimal places. Rounding mode is HALF_EVEN.
    g) Another Improvement is to add boundary value checks for get() method used to fetch elements by index 
    
